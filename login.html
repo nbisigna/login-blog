@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Biz App</title>
+  </head>
+  <body>
+    <div class="container" style="max-width:800px;">
+      <div id="errors" style="display:none;"></div>
+      <form style="text-align:left;">
+        <div class="form-group">
+          <label>Email:&#127;&#127;&#127;&#127;&#127;&#127;</label>
+          <input id="email" type="email" />
+          <hr />
+          <label>Password:&#127;</label>
+          <input id="password" type="password" />
+          <hr />
+        </div>
+      </form>
+      <button class="btn btn-secondary" id="submit">
+        Submit
+      </button>
+    </div>
+    <script>
+      (function() {
+        const button = document.getElementById('submit');
+        button.addEventListener('click', login);
+
+        function login(e) {
+          e.preventDefault();
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
+          const xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+              let now = new Date();
+              now.setTime(now.getTime() + 3600000);
+              let expires = now.toUTCString();
+              localStorage.setItem('expires', expires);
+              window.location.href = '/';
+            } else if (xhttp.status == 400) {
+              this.onload = function() {
+                const errors = document.getElementById('errors');
+                errors.style.display = 'block';
+                const errs = JSON.parse(this.response);
+                console.log(errs);
+                let errMsg = '';
+                for (err of errs.errors) {
+                  errMsg += '<h1>' + err.msg + '</h1>';
+                }
+                console.log(errMsg);
+                errors.innerHTML = errMsg;
+                setTimeout(function() {
+                  errors.style.display = 'none';
+                  errors.innerHTML = '';
+                }, 6000);
+              };
+            }
+          };
+          xhttp.open('POST', '/users/login');
+          xhttp.setRequestHeader('Content-Type', 'application/json');
+          xhttp.send(JSON.stringify({ email, password }));
+        }
+      })();
+    </script>
+  </body>
+</html>

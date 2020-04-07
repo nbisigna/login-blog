@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 | Not Found</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <body>
+    <span style="font-size:32px;" id="url"></span>
+    <h1>Error: 404 Not Found</h1>
+    <script>
+      document.getElementById('url').innerHTML = window.location.pathname;
+    </script>
+  </body>
+</html>

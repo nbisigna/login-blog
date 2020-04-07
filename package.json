@@ -1,0 +1,48 @@
+{
+  "name": "nicksblog",
+  "version": "1.0.0",
+  "description": "Quick start cli for single page React application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon",
+    "build": "webpack -p",
+    "webpack": "webpack -w",
+    "dev": "concurrently \"npm run webpack\" \"npm run server\" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "biz"
+  ],
+  "author": "Me",
+  "license": "MIT",
+  "bin": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "pg": "^7.18.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "sequelize": "^5.21.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-async-to-generator": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/runtime": "^7.9.2",
+    "babel-loader": "^8.1.0",
+    "concurrently": "^4.1.0",
+    "nodemon": "^2.0.2",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.2"
+  }
+}
